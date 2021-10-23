@@ -11,15 +11,30 @@ export class UsersRepository {
     private readonly usersRepository: Repository<UserDao>,
   ) {}
 
-  findAll() {
-    return this.usersRepository.find();
+  async findAll(): Promise<User[]> {
+    const users = await this.usersRepository.find();
+    return users.map((user) => this.mapUserDaoToEntity(user));
   }
 
-  async findById(userId: number): Promise<User> {
+  async findById(userId: string): Promise<User> {
     const user = await this.usersRepository.findOne(userId);
+    if (!user) {
+      return null;
+    }
+
+    return this.mapUserDaoToEntity(user);
+  }
+
+  private mapUserDaoToEntity(user: UserDao): User {
     return {
       id: user.id,
       firstName: user.firstName,
+      lastName: user.lastName,
+      phone: user.phone,
+      password: user.password,
+      updatedAt: user.updatedAt,
+      createdAt: user.createdAt,
+      deletedAt: user.deletedAt,
     };
   }
 }
