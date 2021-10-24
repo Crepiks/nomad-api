@@ -41,6 +41,7 @@ export class createUsersTable1635054866657 implements MigrationInterface {
           {
             name: 'created_at',
             type: 'timestamp',
+            default: 'now()',
           },
           {
             name: 'deleted_at',

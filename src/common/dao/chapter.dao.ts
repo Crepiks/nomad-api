@@ -3,14 +3,15 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ChapterDao } from './chapter.dao';
+import { BookDao } from './book.dao';
 
-@Entity({ name: 'books' })
-export class BookDao {
+@Entity({ name: 'chapters' })
+export class ChapterDao {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -26,6 +27,10 @@ export class BookDao {
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt?: string;
 
-  @OneToMany(() => ChapterDao, (chapter) => chapter.book)
-  chapters?: ChapterDao[];
+  @Column({ name: 'book_id', type: 'int', unsigned: true })
+  bookId: number;
+
+  @ManyToOne(() => BookDao, (book) => book.chapters)
+  @JoinColumn({ name: 'book_id' })
+  book?: BookDao;
 }
