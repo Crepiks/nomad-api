@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Chapter } from 'src/common/entities/chapter';
 import { ChaptersRepository } from '../data/chapters.repository';
 import { CreateChapterDto } from '../dto/create-chapter.dto';
 import { UpdateChapterDto } from '../dto/update-chapter.dto';
@@ -11,19 +12,24 @@ export class ChaptersService {
     return 'This action adds a new chapter';
   }
 
-  findAll() {
+  findAll(): Promise<Chapter[]> {
     return this.chaptersRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} chapter`;
+  async findOne(chapterId: number): Promise<Chapter> {
+    const chapter = await this.chaptersRepository.findById(chapterId);
+    if (!chapter) {
+      throw new NotFoundException('Chapter not found');
+    }
+
+    return chapter;
   }
 
-  update(id: number, updateChapterDto: UpdateChapterDto) {
-    return `This action updates a #${id} chapter`;
+  update(chapterId: number, updateChapterDto: UpdateChapterDto) {
+    return `This action updates a #${chapterId} chapter`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} chapter`;
+  remove(chapterId: number) {
+    return `This action removes a #${chapterId} chapter`;
   }
 }

@@ -13,7 +13,7 @@ export class UsersRepository {
 
   async findAll(): Promise<User[]> {
     const users = await this.usersRepository.find();
-    return users.map((user) => this.mapUserDaoToEntity(user));
+    return users.map(this.mapUserDaoToEntity);
   }
 
   async findById(userId: string): Promise<User> {
