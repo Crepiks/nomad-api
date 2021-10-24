@@ -21,13 +21,17 @@ export class BooksController {
   }
 
   @Get()
-  findAll() {
-    return this.booksService.findAll();
+  async findAll() {
+    return {
+      books: await this.booksService.findAll(),
+    };
   }
 
   @Get(':bookId')
-  findOne(@Param('bookId') bookId: string) {
-    return this.booksService.findOne(+bookId);
+  async findOne(@Param('bookId') bookId: string) {
+    return {
+      book: await this.booksService.findOne(+bookId),
+    };
   }
 
   @Patch(':bookId')

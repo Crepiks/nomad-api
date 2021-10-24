@@ -5,7 +5,7 @@ module.exports = {
   username: 'postgres',
   password: 'root',
   database: 'nomad',
-  synchronize: true,
+  synchronize: false,
   entities: ['src/common/dao/*.ts'],
   migrationsTableName: 'migrations',
   migrations: ['database/migrations/*.ts'],
