@@ -16,6 +16,15 @@ export class UnitsRepository {
     return units.map(this.mapUnitDaoToEntity);
   }
 
+  async findById(unitId: number): Promise<Unit> {
+    const unit = await this.unitsRepository.findOne(unitId);
+    if (!unit) {
+      return null;
+    }
+
+    return this.mapUnitDaoToEntity(unit);
+  }
+
   private mapUnitDaoToEntity(unit: UnitDao): Unit {
     return {
       id: unit.id,

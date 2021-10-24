@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UnitsRepository } from '../data/units.repository';
 import { CreateUnitDto } from '../dto/create-unit.dto';
 import { UpdateUnitDto } from '../dto/update-unit.dto';
@@ -15,15 +15,20 @@ export class UnitsService {
     return this.unitsRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} unit`;
+  async findOne(unitId: number) {
+    const unit = await this.unitsRepository.findById(unitId);
+    if (!unit) {
+      throw new NotFoundException('Unit not found');
+    }
+
+    return unit;
   }
 
-  update(id: number, updateUnitDto: UpdateUnitDto) {
-    return `This action updates a #${id} unit`;
+  update(unitId: number, updateUnitDto: UpdateUnitDto) {
+    return `This action updates a #${unitId} unit`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} unit`;
+  remove(unitId: number) {
+    return `This action removes a #${unitId} unit`;
   }
 }
