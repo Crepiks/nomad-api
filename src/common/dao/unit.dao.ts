@@ -5,10 +5,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ChapterDao } from './chapter.dao';
+import { ExplanationDao } from './explanation.dao';
 
 @Entity({ name: 'units' })
 export class UnitDao {
@@ -33,4 +35,7 @@ export class UnitDao {
   @ManyToOne(() => ChapterDao, (chapter) => chapter.units)
   @JoinColumn({ name: 'chapter_id' })
   chapter?: ChapterDao;
+
+  @OneToOne(() => ExplanationDao, (explanation) => explanation.unit)
+  explanation?: ExplanationDao;
 }

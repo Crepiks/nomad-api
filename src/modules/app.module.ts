@@ -9,6 +9,8 @@ import { ChaptersModule } from './chapters/chapters.module';
 import { ChapterDao } from 'src/common/dao/chapter.dao';
 import { UnitsModule } from './units/units.module';
 import { UnitDao } from 'src/common/dao/unit.dao';
+import { ExplanationsModule } from './explanations/explanations.module';
+import { ExplanationDao } from 'src/common/dao/explanation.dao';
 
 @Module({
   imports: [
@@ -20,12 +22,13 @@ import { UnitDao } from 'src/common/dao/unit.dao';
       password: databaseConfig.password,
       database: databaseConfig.name,
       synchronize: false,
-      entities: [UserDao, BookDao, ChapterDao, UnitDao],
+      entities: [UserDao, BookDao, ChapterDao, UnitDao, ExplanationDao],
     }),
     UsersModule,
     BooksModule,
     ChaptersModule,
     UnitsModule,
+    ExplanationsModule,
   ],
 })
 export class AppModule {}
