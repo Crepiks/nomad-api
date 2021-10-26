@@ -5,12 +5,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ChapterDao } from './chapter.dao';
 import { ExplanationDao } from './explanation.dao';
+import { TaskDao } from './task.dao';
 
 @Entity({ name: 'units' })
 export class UnitDao {
@@ -38,4 +40,7 @@ export class UnitDao {
 
   @OneToOne(() => ExplanationDao, (explanation) => explanation.unit)
   explanation?: ExplanationDao;
+
+  @OneToMany(() => TaskDao, (task) => task.unit)
+  tasks?: TaskDao[];
 }

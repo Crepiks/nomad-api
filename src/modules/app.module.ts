@@ -11,6 +11,8 @@ import { UnitsModule } from './units/units.module';
 import { UnitDao } from 'src/common/dao/unit.dao';
 import { ExplanationsModule } from './explanations/explanations.module';
 import { ExplanationDao } from 'src/common/dao/explanation.dao';
+import { TasksModule } from './tasks/tasks.module';
+import { TaskDao } from 'src/common/dao/task.dao';
 
 @Module({
   imports: [
@@ -22,13 +24,21 @@ import { ExplanationDao } from 'src/common/dao/explanation.dao';
       password: databaseConfig.password,
       database: databaseConfig.name,
       synchronize: false,
-      entities: [UserDao, BookDao, ChapterDao, UnitDao, ExplanationDao],
+      entities: [
+        UserDao,
+        BookDao,
+        ChapterDao,
+        UnitDao,
+        ExplanationDao,
+        TaskDao,
+      ],
     }),
     UsersModule,
     BooksModule,
     ChaptersModule,
     UnitsModule,
     ExplanationsModule,
+    TasksModule,
   ],
 })
 export class AppModule {}
